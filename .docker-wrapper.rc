@@ -1,1 +1,3 @@
 DOCKER_WRAPPER_IMAGE_ruby(){ echo "2.6.2-stretch"; }
+DOCKER_WRAPPER_IMAGE_rocker/rstudio(){ echo "3.5.3"; }
+DOCKER_WRAPPER_SERVER_OPTS_rstudio(){ echo "-p ${LABO_PORT_PREFIX}87:8787 -e DISABLE_AUTH=true"; }

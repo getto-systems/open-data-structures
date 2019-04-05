@@ -21,7 +21,7 @@ module OpenDataStructures
       private
 
         def assert_index(index)
-          raise ArgumentError if index < 0 or index >= @length
+          raise ArgumentError, "index: #{index} / length: #{length}" if index < 0 or index >= length
         end
     end
   end
