@@ -6,6 +6,8 @@ module OpenDataStructures
         @array = Array.new(@length)
       end
 
+      attr_reader :length
+
       def [](index)
         assert_index index
         @array.at index
