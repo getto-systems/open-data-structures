@@ -22,6 +22,7 @@ module OpenDataStructures
       end
 
       def add(index,value)
+        assert_index_for_add index
         expand if size + 1 >= @array.length
 
         if index < size
@@ -37,6 +38,7 @@ module OpenDataStructures
       end
 
       def remove(index)
+        assert_index index
         target = @array[index]
 
         if index < size
@@ -51,6 +53,22 @@ module OpenDataStructures
         shrink if size < @array.length / 3
 
         target
+      end
+
+      def push(value)
+        add(@size,value)
+      end
+
+      def unshift(value)
+        add(0,value)
+      end
+
+      def pop
+        remove(@size - 1)
+      end
+
+      def shift
+        remove(0)
       end
 
       private
@@ -78,7 +96,10 @@ module OpenDataStructures
         end
 
         def assert_index(index)
-          raise ArgumentError if index < 0 or index >= size
+          raise ArgumentError, "index: #{index} / length: #{size}" if index < 0 or index >= size
+        end
+        def assert_index_for_add(index)
+          raise ArgumentError, "index: #{index} / length: #{size}" if index < 0 or index >= size + 1
         end
     end
   end
