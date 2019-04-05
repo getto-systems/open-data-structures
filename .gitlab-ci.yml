@@ -1,0 +1,15 @@
+image: ruby:2.6.2-stretch
+
+test:
+  except:
+    - master
+    - release
+    - tags
+  script:
+    - rake test
+
+release:
+  only:
+    - release@getto-systems-labo/open-data-structures
+  script:
+    - ./bin/push_tags.sh
