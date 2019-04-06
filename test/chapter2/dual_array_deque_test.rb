@@ -5,63 +5,83 @@ require "chapter2/dual_array_deque"
 module OpenDataStructures::Chapter2
   class DualArrayDequeTest < Minitest::Test
     def test_set_and_get
-      dual_array_deque = DualArrayDeque.new
-      dual_array_deque.add(0,nil)
-      dual_array_deque.add(0,nil)
+      array = DualArrayDeque.new
+      array.add(0,nil)
+      array.add(0,nil)
 
-      dual_array_deque[0] = :a
+      array[0] = :a
 
-      assert_equal :a, dual_array_deque[0]
+      assert_equal :a, array[0]
 
-      dual_array_deque[1] = :b
+      array[1] = :b
 
-      assert_equal :a, dual_array_deque[0]
-      assert_equal :b, dual_array_deque[1]
+      assert_equal :a, array[0]
+      assert_equal :b, array[1]
     end
 
     def test_add_and_remove
-      dual_array_deque = DualArrayDeque.new
+      array = DualArrayDeque.new
 
-      dual_array_deque.add(0,:a)
-      assert_equal :a, dual_array_deque[0]
+      array.add(0,:a)
+      assert_equal :a, array[0]
 
-      dual_array_deque.add(0,:b)
-      assert_equal :b, dual_array_deque[0]
-      assert_equal :a, dual_array_deque[1]
+      array.add(0,:b)
+      assert_equal :b, array[0]
+      assert_equal :a, array[1]
 
-      dual_array_deque.add(0,:c)
-      assert_equal :c, dual_array_deque[0]
-      assert_equal :b, dual_array_deque[1]
-      assert_equal :a, dual_array_deque[2]
+      array.add(0,:c)
+      assert_equal :c, array[0]
+      assert_equal :b, array[1]
+      assert_equal :a, array[2]
 
-      assert_equal :c, dual_array_deque.remove(0)
-      assert_equal :b, dual_array_deque[0]
-      assert_equal :a, dual_array_deque[1]
+      assert_equal :c, array.remove(0)
+      assert_equal :b, array[0]
+      assert_equal :a, array[1]
 
-      assert_equal :b, dual_array_deque.remove(0)
-      assert_equal :a, dual_array_deque[0]
+      assert_equal :b, array.remove(0)
+      assert_equal :a, array[0]
 
-      assert_equal :a, dual_array_deque.remove(0)
+      assert_equal :a, array.remove(0)
     end
 
     def test_resize
-      dual_array_deque = DualArrayDeque.new
+      array = ArrayDeque.new
 
-      dual_array_deque.add(0,:a)
-      dual_array_deque.add(0,:b)
-      dual_array_deque.add(0,:c)
-      dual_array_deque.add(0,:d)
-      dual_array_deque.add(0,:e)
-      dual_array_deque.add(0,:f)
+      array.add(0,:a)
+      array.add(0,:b)
+      array.add(0,:c)
+      array.add(0,:d)
+      array.add(0,:e)
+      array.add(0,:f)
+      array.add(0,:g)
+      array.add(0,:h)
+      array.add(0,:i)
+      array.add(0,:j)
+      array.add(0,:k)
+      array.add(0,:l)
+      array.add(0,:m)
+      array.add(0,:n)
+      array.add(0,:o)
+      array.add(0,:p)
 
-      assert_equal [:f,:e,:d,:c,:b,:a],
+      assert_equal [:p,:o,:n,:m,:l,:k,:j,:i,:h,:g,:f,:e,:d,:c,:b,:a],
         [
-          dual_array_deque.remove(0),
-          dual_array_deque.remove(0),
-          dual_array_deque.remove(0),
-          dual_array_deque.remove(0),
-          dual_array_deque.remove(0),
-          dual_array_deque.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
+          array.remove(0),
         ]
     end
   end
