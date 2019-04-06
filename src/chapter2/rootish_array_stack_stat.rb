@@ -1,11 +1,11 @@
-require "chapter2/array_stack"
+require "chapter2/rootish_array_stack"
 
 require_relative "stat"
 
 module OpenDataStructures::Chapter2
-  class ArrayStackStat < Stat
+  class RootishArrayStackStat < Stat
     def initialize
-      super(ArrayStack)
+      super(RootishArrayStack)
     end
 
     def dump(unit:, count:)
@@ -44,5 +44,5 @@ module OpenDataStructures::Chapter2
     end
   end
 
-  ArrayStackStat.new.dump unit: 100, count: 100
+  RootishArrayStackStat.new.dump unit: 100, count: 100
 end

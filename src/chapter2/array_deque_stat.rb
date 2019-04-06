@@ -5,9 +5,7 @@ require_relative "stat"
 module OpenDataStructures::Chapter2
   class ArrayDequeStat < Stat
     def initialize
-      super(ArrayDeque){|array_deque|
-        array_deque.instance_variable_get(:@array).length - array_deque.length
-      }
+      super(ArrayDeque)
     end
 
     def dump(unit:, count:)

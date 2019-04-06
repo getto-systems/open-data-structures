@@ -10,6 +10,10 @@ module OpenDataStructures
 
       attr_reader :length
 
+      def blank
+        @array.length - length
+      end
+
       def [](index)
         assert_index index
         get index
@@ -22,7 +26,7 @@ module OpenDataStructures
 
       def add(index,value)
         assert_add index
-        expand if length + 1 >= @array.length
+        grow if full?
 
         (length - index).times do |i|
           set (length - i), get(length - i - 1)
@@ -38,14 +42,14 @@ module OpenDataStructures
         assert_index index
         target = get index
 
-        (length - index).times do |i|
+        (length - index - 1).times do |i|
           set (index + i), get(index + i + 1)
         end
 
-        set length, nil
+        set length - 1, nil
         @length -= 1
 
-        shrink if length < @array.length / 3
+        shrink if over?
 
         target
       end
@@ -76,7 +80,15 @@ module OpenDataStructures
           @array[index] = value
         end
 
-        def expand
+        def full?
+          length + 1 >= @array.length
+        end
+
+        def over?
+          length < @array.length / 3
+        end
+
+        def grow
           resize(@array.length * 2)
         end
 

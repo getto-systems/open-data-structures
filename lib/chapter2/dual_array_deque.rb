@@ -12,6 +12,10 @@ module OpenDataStructures
         @front.length + @back.length
       end
 
+      def blank
+        @front.blank + @back.blank
+      end
+
       def [](index)
         if index < @front.length
           @front[@front.length - index - 1]

@@ -4,9 +4,8 @@ require "csv"
 module OpenDataStructures
   module Chapter2
     class Stat
-      def initialize(klass, &block)
+      def initialize(klass)
         @klass = klass
-        @length = block
       end
 
       private
@@ -37,7 +36,7 @@ module OpenDataStructures
           [
             count,
             time.utime,
-            @length.call(instance),
+            instance.blank,
           ]
         end
     end

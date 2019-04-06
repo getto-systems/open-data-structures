@@ -5,9 +5,7 @@ require_relative "stat"
 module OpenDataStructures::Chapter2
   class ArrayQueueStat < Stat
     def initialize
-      super(ArrayQueue){|array_queue|
-        array_queue.instance_variable_get(:@array).length - array_queue.length
-      }
+      super(ArrayQueue)
     end
 
     def dump(unit:, count:)

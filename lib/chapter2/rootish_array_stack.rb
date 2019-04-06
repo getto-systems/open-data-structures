@@ -1,18 +1,22 @@
+require_relative "array_stack"
 require_relative "backing_array"
 
 module OpenDataStructures
   module Chapter2
-    class ArrayDeque
+    class RootishArrayStack
       def initialize
         @length = 0
-        @index = 0
-        @array = BackingArray.new(length: 1)
+        @blocks = ArrayStack.new
       end
 
       attr_reader :length
 
       def blank
-        @array.length - length
+        sum = 0
+        @blocks.length.times do |i|
+          sum += @blocks[i].blank
+        end
+        sum
       end
 
       def [](index)
@@ -29,15 +33,8 @@ module OpenDataStructures
         assert_add index
         grow if full?
 
-        if index < length / 2
-          index.times do |i|
-            set (i - 1), get(i)
-          end
-          @index -= 1
-        else
-          (length - index).times do |i|
-            set (length - i), get(length - i - 1)
-          end
+        (length - index).times do |i|
+          set (length - i), get(length - i - 1)
         end
 
         set index, value
@@ -50,19 +47,11 @@ module OpenDataStructures
         assert_index index
         target = get index
 
-        if index < length / 2
-          index.times do |i|
-            set (index - i), get(index - i - 1)
-          end
-          set 0, nil
-          @index += 1
-        else
-          (length - index - 1).times do |i|
-            set (index + i), get(index + i + 1)
-          end
-          set length-1, nil
+        (length - index - 1).times do |i|
+          set (index + i), get(index + i + 1)
         end
 
+        set length - 1, nil
         @length -= 1
 
         shrink if over?
@@ -89,41 +78,37 @@ module OpenDataStructures
       private
 
         def get(index)
-          @array[fit index]
+          block, inner = block_index index
+          @blocks[block][inner]
         end
 
         def set(index,value)
-          @array[fit index] = value
+          block, inner = block_index index
+          @blocks[block][inner] = value
         end
 
-        def fit(index)
-          (index + @index) % @array.length
+        def block_index(index)
+          block = ((-3.0 + Math.sqrt(9.0 + 8.0 * index)) / 2.0).ceil
+          inner = index - (block*(block + 1))/2
+          [ block, inner ]
         end
 
         def full?
-          length + 1 >= @array.length
+          block = @blocks.length
+          (block * (block + 1) / 2) <= length
         end
 
         def over?
-          length < @array.length / 3
+          block = @blocks.length
+          ((block - 2) * (block - 1) / 2) >= length
         end
 
         def grow
-          resize(@array.length * 2)
+          @blocks.push BackingArray.new(length: @blocks.length + 1)
         end
 
         def shrink
-          resize(@array.length / 3)
-        end
-
-        def resize(new_length)
-          new_length = 1 if new_length <= 0
-          new_array = BackingArray.new(length: new_length)
-          length.times do |i|
-            new_array[i] = get i
-          end
-          @array = new_array
-          @index = 0
+          @blocks.pop
         end
 
         def assert_index(index)
