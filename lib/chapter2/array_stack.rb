@@ -4,11 +4,11 @@ module OpenDataStructures
   module Chapter2
     class ArrayStack
       def initialize
-        @size = 0
+        @length = 0
         @array = BackingArray.new(length: 1)
       end
 
-      attr_reader :size
+      attr_reader :length
 
       def get(index)
         assert_index index
@@ -23,14 +23,14 @@ module OpenDataStructures
 
       def add(index,value)
         assert_add index
-        expand if size + 1 >= @array.length
+        expand if length + 1 >= @array.length
 
-        (size - index).times do |i|
-          @array[size - i] = @array[size - i - 1]
+        (length - index).times do |i|
+          @array[length - i] = @array[length - i - 1]
         end
 
         @array[index] = value
-        @size += 1
+        @length += 1
 
         nil
       end
@@ -39,20 +39,20 @@ module OpenDataStructures
         assert_index index
         target = @array[index]
 
-        (size - index).times do |i|
+        (length - index).times do |i|
           @array[index + i] = @array[index + i + 1]
         end
 
-        @array[size] = nil
-        @size -= 1
+        @array[length] = nil
+        @length -= 1
 
-        shrink if size < @array.length / 3
+        shrink if length < @array.length / 3
 
         target
       end
 
       def push(value)
-        add(@size,value)
+        add(length,value)
       end
 
       def unshift(value)
@@ -60,7 +60,7 @@ module OpenDataStructures
       end
 
       def pop
-        remove(@size - 1)
+        remove(length - 1)
       end
 
       def shift
@@ -77,20 +77,20 @@ module OpenDataStructures
           resize(@array.length / 3)
         end
 
-        def resize(length)
-          length = 1 if length <= 0
-          array = BackingArray.new(length: length)
-          size.times do |i|
-            array[i] = @array[i]
+        def resize(new_length)
+          new_length = 1 if new_length <= 0
+          new_array = BackingArray.new(length: new_length)
+          length.times do |i|
+            new_array[i] = @array[i]
           end
-          @array = array
+          @array = new_array
         end
 
         def assert_index(index)
-          raise ArgumentError, "index: #{index} / length: #{size}" if index < 0 or index >= size
+          raise ArgumentError, "index: #{index} / length: #{length}" if index < 0 or index >= length
         end
         def assert_add(index)
-          raise ArgumentError, "index: #{index} / length: #{size}" if index < 0 or index >= size + 1
+          raise ArgumentError, "index: #{index} / length: #{length}" if index < 0 or index >= length + 1
         end
     end
   end

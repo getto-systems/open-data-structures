@@ -6,7 +6,7 @@ module OpenDataStructures::Chapter2
   class ArrayStackStat < Stat
     def initialize
       super(ArrayStack){|array_stack|
-        array_stack.instance_variable_get(:@array).length - array_stack.size
+        array_stack.instance_variable_get(:@array).length - array_stack.length
       }
     end
 
