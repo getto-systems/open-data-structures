@@ -28,7 +28,7 @@ module OpenDataStructures
           set (length - i), get(length - i - 1)
         end
 
-        @array[index] = value
+        set index, value
         @length += 1
 
         nil
@@ -36,13 +36,13 @@ module OpenDataStructures
 
       def remove(index)
         assert_index index
-        target = @array[index]
+        target = get index
 
         (length - index).times do |i|
           set (index + i), get(index + i + 1)
         end
 
-        @array[length] = nil
+        set length, nil
         @length -= 1
 
         shrink if length < @array.length / 3
@@ -88,7 +88,7 @@ module OpenDataStructures
           new_length = 1 if new_length <= 0
           new_array = BackingArray.new(length: new_length)
           length.times do |i|
-            new_array[i] = @array[i]
+            new_array[i] = get i
           end
           @array = new_array
         end
