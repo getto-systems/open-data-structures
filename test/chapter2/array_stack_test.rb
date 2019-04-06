@@ -43,5 +43,26 @@ module OpenDataStructures::Chapter2
 
       assert_equal :a, array_stack.remove(0)
     end
+
+    def test_resize
+      array_stack = ArrayStack.new
+
+      array_stack.add(0,:a)
+      array_stack.add(0,:b)
+      array_stack.add(0,:c)
+      array_stack.add(0,:d)
+      array_stack.add(0,:e)
+      array_stack.add(0,:f)
+
+      assert_equal [:f,:e,:d,:c,:b,:a],
+        [
+          array_stack.remove(0),
+          array_stack.remove(0),
+          array_stack.remove(0),
+          array_stack.remove(0),
+          array_stack.remove(0),
+          array_stack.remove(0),
+        ]
+    end
   end
 end
