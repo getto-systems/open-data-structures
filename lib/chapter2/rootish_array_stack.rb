@@ -12,11 +12,8 @@ module OpenDataStructures
       attr_reader :length
 
       def blank
-        sum = 0
-        @blocks.length.times do |i|
-          sum += @blocks[i].blank
-        end
-        sum
+        block = @blocks.length
+        block * (block + 1) / 2 - length
       end
 
       def [](index)
