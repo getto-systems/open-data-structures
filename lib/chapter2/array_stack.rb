@@ -22,13 +22,11 @@ module OpenDataStructures
       end
 
       def add(index,value)
-        assert_index_for_add index
+        assert_add index
         expand if size + 1 >= @array.length
 
-        if index < size
-          (size - index).times do |i|
-            @array[size - i] = @array[size - i - 1]
-          end
+        (size - index).times do |i|
+          @array[size - i] = @array[size - i - 1]
         end
 
         @array[index] = value
@@ -41,10 +39,8 @@ module OpenDataStructures
         assert_index index
         target = @array[index]
 
-        if index < size
-          (size - index).times do |i|
-            @array[index + i] = @array[index + i + 1]
-          end
+        (size - index).times do |i|
+          @array[index + i] = @array[index + i + 1]
         end
 
         @array[size] = nil
@@ -74,20 +70,15 @@ module OpenDataStructures
       private
 
         def expand
-          resize(
-            if @array.length > 0
-              @array.length * 2
-            else
-              1
-            end
-          )
+          resize(@array.length * 2)
         end
 
         def shrink
-          resize(@array.length / 2)
+          resize(@array.length / 3)
         end
 
         def resize(length)
+          length = 1 if length <= 0
           array = BackingArray.new(length: length)
           size.times do |i|
             array[i] = @array[i]
@@ -98,7 +89,7 @@ module OpenDataStructures
         def assert_index(index)
           raise ArgumentError, "index: #{index} / length: #{size}" if index < 0 or index >= size
         end
-        def assert_index_for_add(index)
+        def assert_add(index)
           raise ArgumentError, "index: #{index} / length: #{size}" if index < 0 or index >= size + 1
         end
     end
