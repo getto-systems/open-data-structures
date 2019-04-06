@@ -16,10 +16,11 @@ module OpenDataStructures::Chapter2
             array.remove(0),
             array.remove(0),
             array.remove(0),
+            array.remove(0),
           ]
       end
 
-      def test_add_all
+      def test_insert_add_all
         array = ArrayStack.new
 
         array.addAll(0,[:f,:g,:h,:i,:j,:k,:l,:m,:n,:o,:p])
