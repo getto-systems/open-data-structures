@@ -10,15 +10,14 @@ module OpenDataStructures
 
       attr_reader :length
 
-      def get(index)
+      def [](index)
         assert_index index
-        @array[index]
+        get index
       end
 
-      def set(index,value)
+      def []=(index,value)
         assert_index index
-        @array[index], old = value, @array[index]
-        old
+        set index, value
       end
 
       def add(index,value)
@@ -68,6 +67,14 @@ module OpenDataStructures
       end
 
       private
+
+        def get(index)
+          @array[index]
+        end
+
+        def set(index,value)
+          @array[index] = value
+        end
 
         def expand
           resize(@array.length * 2)
