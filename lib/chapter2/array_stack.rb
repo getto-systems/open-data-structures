@@ -1,4 +1,4 @@
-require_relative "backing_array"
+require "chapter2/backing_array"
 
 module OpenDataStructures
   module Chapter2
