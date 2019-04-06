@@ -25,7 +25,7 @@ module OpenDataStructures
         expand if length + 1 >= @array.length
 
         (length - index).times do |i|
-          @array[length - i] = @array[length - i - 1]
+          set (length - i), get(length - i - 1)
         end
 
         @array[index] = value
@@ -39,7 +39,7 @@ module OpenDataStructures
         target = @array[index]
 
         (length - index).times do |i|
-          @array[index + i] = @array[index + i + 1]
+          set (index + i), get(index + i + 1)
         end
 
         @array[length] = nil
