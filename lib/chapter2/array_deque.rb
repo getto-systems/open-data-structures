@@ -97,11 +97,7 @@ module OpenDataStructures
         end
 
         def fit(index)
-          if @array.length > 0
-            (index + @index) % @array.length
-          else
-            0
-          end
+          (index + @index) % @array.length
         end
 
         def full?
