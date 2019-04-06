@@ -8,6 +8,10 @@ module OpenDataStructures
 
       attr_reader :length
 
+      def blank
+        @array.length - length
+      end
+
       def [](index)
         assert_index index
         @array.at index

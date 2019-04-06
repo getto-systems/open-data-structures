@@ -5,11 +5,7 @@ require_relative "stat"
 module OpenDataStructures::Chapter2
   class DualArrayDequeStat < Stat
     def initialize
-      super(DualArrayDeque){|dual_array_deque|
-        dual_array_deque.instance_variable_get(:@front).instance_variable_get(:@array).length
-        + dual_array_deque.instance_variable_get(:@back).instance_variable_get(:@array).length
-        - dual_array_deque.length
-      }
+      super(DualArrayDeque)
     end
 
     def dump(unit:, count:)
