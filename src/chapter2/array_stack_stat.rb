@@ -13,7 +13,6 @@ module OpenDataStructures::Chapter2
     def dump(unit:, count:)
       dump_first(unit, count)
       dump_last(unit, count)
-      dump_middle(unit, count)
     end
 
     def dump_first(unit, count)
@@ -41,21 +40,6 @@ module OpenDataStructures::Chapter2
         count.times do |c|
           csv << rows(instance, count - c, unit){|i|
             instance.pop
-          }
-        end
-      end
-    end
-
-    def dump_middle(unit, count)
-      start "middle" do |instance,csv|
-        count.times do |c|
-          csv << rows(instance, c, unit){|i|
-            instance.add(i/2,i)
-          }
-        end
-        count.times do |c|
-          csv << rows(instance, count - c, unit){|i|
-            instance.remove(instance.size/2)
           }
         end
       end
