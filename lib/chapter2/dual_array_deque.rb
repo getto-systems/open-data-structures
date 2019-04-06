@@ -1,4 +1,4 @@
-require_relative "array_stack"
+require "chapter2/array_stack"
 
 module OpenDataStructures
   module Chapter2
