@@ -31,6 +31,7 @@ stat scripts
 
 ```
 $ rake test
+$ rake watch # start auto test
 ```
 
 
