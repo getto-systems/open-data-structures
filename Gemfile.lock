@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    filewatcher (1.1.1)
+      optimist (~> 3.0)
+    minitest (5.11.3)
+    optimist (3.0.0)
+    rake (12.3.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  filewatcher
+  minitest
+  rake
+
+BUNDLED WITH
+   1.17.2
