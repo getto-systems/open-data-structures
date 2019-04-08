@@ -51,7 +51,6 @@ module OpenDataStructures
 
         if index == 0
           node.insert_after @head
-
           @head = node
         else
           find(index - 1).insert_after node
