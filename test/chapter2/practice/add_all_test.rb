@@ -5,6 +5,8 @@ require "chapter2/practice/add_all"
 module OpenDataStructures::Chapter2
   module Practice
     class AddAllTest < Minitest::Test
+      using AddAll
+
       def test_add_all
         array = ArrayStack.new
 
