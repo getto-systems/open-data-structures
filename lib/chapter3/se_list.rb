@@ -1,25 +1,11 @@
-require "chapter2/array_deque"
+require "chapter3/dl_list"
 
 module OpenDataStructures
   module Chapter3
     class SEList
-      class FixedDeque < Chapter2::ArrayDeque
-        def initialize(length:)
-          super()
-
-          @array = Chapter2::BackingArray.new(length: length+1)
-        end
-
-        private
-
-          def resize(size)
-            # noop
-          end
-      end
-
       class Node
-        def initialize(block)
-          @block = block
+        def initialize
+          @block = DLList.new
         end
 
         attr_reader :block
@@ -46,15 +32,9 @@ module OpenDataStructures
         end
       end
 
-      class ValueNode < Node
-        def initialize(length:)
-          super(FixedDeque.new(length: length))
-        end
-      end
-
       class LoopNode < Node
         def initialize
-          super(FixedDeque.new(length: 0))
+          super
 
           @next = self
           @previous = self
@@ -97,7 +77,7 @@ module OpenDataStructures
         if index == length
           last = @loop.previous
           if last.loop? or last.block.length == block_size + 1
-            last = @loop.insert_before new_node
+            last = @loop.insert_before Node.new
           end
           last.block.push value
           @length += 1
@@ -121,7 +101,7 @@ module OpenDataStructures
           end
 
           if node.loop?
-            node = @loop.insert_before new_node
+            node = @loop.insert_before Node.new
           end
 
           while node != target
@@ -217,17 +197,13 @@ module OpenDataStructures
           [ node, search ]
         end
 
-        def new_node
-          ValueNode.new(length: block_size)
-        end
-
         def spread(node)
           target = node
           block_size.times do
             target = target.next
           end
 
-          target = target.insert_before new_node
+          target = target.insert_before Node.new
           while target != node
             while target.block.length < block_size
               target.block.unshift target.previous.block.pop

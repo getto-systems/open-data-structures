@@ -29,6 +29,7 @@ module OpenDataStructures
 
       def initialize
         @length = 0
+        @head = nil
       end
 
       attr_reader :length
