@@ -8,13 +8,11 @@ module OpenDataStructures
 
         attr_accessor :next, :previous, :value
 
-        def clear!
-          @value = nil
-          @next = nil
-          @previous = nil
+        def loop?
+          false
         end
 
-        def insertBefore(node)
+        def insert_before(node)
           self.previous.next = node
 
           node.previous = self.previous
@@ -27,20 +25,27 @@ module OpenDataStructures
           self.previous.next = self.next
           self.next.previous = self.previous
 
-          value = self.value
-
-          clear!
-
           value
+        end
+      end
+
+      class LoopNode < Node
+        def initialize
+          super(nil)
+
+          @next = self
+          @previous = self
+        end
+
+        def loop?
+          true
         end
       end
 
       def initialize
         @length = 0
 
-        @loop = Node.new nil
-        @loop.next = @loop
-        @loop.previous = @loop
+        @loop = LoopNode.new
       end
 
       attr_reader :length
@@ -58,7 +63,7 @@ module OpenDataStructures
       def add(index,value)
         validate_add index
 
-        find(index).insertBefore Node.new(value)
+        find(index).insert_before Node.new(value)
         @length += 1
 
         nil
@@ -67,7 +72,8 @@ module OpenDataStructures
       def remove(index)
         validate_index index
 
-        value = find(index).remove!
+        node = find(index)
+        value = node.remove!
         @length -= 1
 
         value

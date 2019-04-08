@@ -5,68 +5,68 @@ require "chapter3/sl_list"
 module OpenDataStructures::Chapter3
   class SLListTest < Minitest::Test
     def test_set_and_get
-      array = SLList.new
-      array.add(0,nil)
-      array.add(0,nil)
+      list = SLList.new
+      list.add(0,nil)
+      list.add(0,nil)
 
-      array[0] = :a
+      list[0] = :a
 
-      assert_equal :a, array[0]
+      assert_equal :a, list[0]
 
-      array[1] = :b
+      list[1] = :b
 
-      assert_equal :a, array[0]
-      assert_equal :b, array[1]
+      assert_equal :a, list[0]
+      assert_equal :b, list[1]
     end
 
     def test_add_and_remove
-      array = SLList.new
+      list = SLList.new
 
-      array.add(0,:a)
-      assert_equal :a, array[0]
+      list.add(0,:a)
+      assert_equal :a, list[0]
 
-      array.add(0,:b)
-      assert_equal :b, array[0]
-      assert_equal :a, array[1]
+      list.add(0,:b)
+      assert_equal :b, list[0]
+      assert_equal :a, list[1]
 
-      array.add(0,:c)
-      assert_equal :c, array[0]
-      assert_equal :b, array[1]
-      assert_equal :a, array[2]
+      list.add(0,:c)
+      assert_equal :c, list[0]
+      assert_equal :b, list[1]
+      assert_equal :a, list[2]
 
-      assert_equal :c, array.remove(0)
-      assert_equal :b, array[0]
-      assert_equal :a, array[1]
+      assert_equal :c, list.remove(0)
+      assert_equal :b, list[0]
+      assert_equal :a, list[1]
 
-      assert_equal :b, array.remove(0)
-      assert_equal :a, array[0]
+      assert_equal :b, list.remove(0)
+      assert_equal :a, list[0]
 
-      assert_equal :a, array.remove(0)
+      assert_equal :a, list.remove(0)
     end
 
     def test_add_and_remove_at_last
-      array = SLList.new
+      list = SLList.new
 
-      array.add(0,:a)
-      assert_equal :a, array[0]
+      list.add(0,:a)
+      assert_equal :a, list[0]
 
-      array.add(1,:b)
-      assert_equal :a, array[0]
-      assert_equal :b, array[1]
+      list.add(1,:b)
+      assert_equal :a, list[0]
+      assert_equal :b, list[1]
 
-      array.add(2,:c)
-      assert_equal :a, array[0]
-      assert_equal :b, array[1]
-      assert_equal :c, array[2]
+      list.add(2,:c)
+      assert_equal :a, list[0]
+      assert_equal :b, list[1]
+      assert_equal :c, list[2]
 
-      assert_equal :c, array.remove(2)
-      assert_equal :a, array[0]
-      assert_equal :b, array[1]
+      assert_equal :c, list.remove(2)
+      assert_equal :a, list[0]
+      assert_equal :b, list[1]
 
-      assert_equal :b, array.remove(1)
-      assert_equal :a, array[0]
+      assert_equal :b, list.remove(1)
+      assert_equal :a, list[0]
 
-      assert_equal :a, array.remove(0)
+      assert_equal :a, list.remove(0)
     end
   end
 end
