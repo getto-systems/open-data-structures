@@ -3,7 +3,7 @@ require "chapter2/array_stack"
 module OpenDataStructures::Chapter2
   class ArrayStack
     def addAll(index, values)
-      assert_add index
+      validate_add index
 
       value_length = values.length
 
