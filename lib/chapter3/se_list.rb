@@ -15,7 +15,9 @@ module OpenDataStructures
           false
         end
 
-        def insert_before(node)
+        def insert_before
+          node = Node.new
+
           self.previous.next = node
 
           node.previous = self.previous
@@ -75,11 +77,11 @@ module OpenDataStructures
         validate_add index
 
         if index == length
-          target = @loop.previous
-          if target.loop? or target.block.length == block_size + 1
-            target = @loop.insert_before Node.new
+          node = @loop.previous
+          if node.loop? or node.block.length == block_size + 1
+            node = @loop.insert_before
           end
-          i = target.block.length
+          i = node.block.length
         else
           node, i = find index
 
@@ -89,22 +91,10 @@ module OpenDataStructures
             spread node
           end
 
-          target = node
-          full_count.times do
-            target = target.next
-          end
-
-          if target.loop?
-            target = @loop.insert_before Node.new
-          end
-
-          while target != node
-            target.block.unshift target.previous.block.pop
-            target = target.previous
-          end
+          shift_after_add node, full_count
         end
 
-        target.block.add i, value
+        node.block.add i, value
         @length += 1
 
         nil
@@ -123,16 +113,7 @@ module OpenDataStructures
 
         value = node.block.remove i
 
-        target = node
-        while target.block.length < block_size - 1
-          break if target.next.loop?
-          target.block.push target.next.block.shift
-          target = target.next
-        end
-
-        if target.block.length == 0
-          target.remove!
-        end
+        shift_after_remove node
 
         @length -= 1
 
@@ -202,11 +183,27 @@ module OpenDataStructures
             target = target.next
           end
 
-          target = target.insert_before Node.new
+          target = target.insert_before
           while target != node
             while target.block.length < block_size
               target.block.unshift target.previous.block.pop
             end
+            target = target.previous
+          end
+        end
+
+        def shift_after_add(node, full_count)
+          target = node
+          full_count.times do
+            target = target.next
+          end
+
+          if target.loop?
+            target = target.insert_before
+          end
+
+          while target != node
+            target.block.unshift target.previous.block.pop
             target = target.previous
           end
         end
@@ -220,6 +217,18 @@ module OpenDataStructures
             target = target.next
           end
           target.remove!
+        end
+
+        def shift_after_remove(node)
+          while node.block.length < block_size - 1
+            break if node.next.loop?
+            node.block.push node.next.block.shift
+            node = node.next
+          end
+
+          if node.block.length == 0
+            node.remove!
+          end
         end
 
         def validate_index(index)
