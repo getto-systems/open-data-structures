@@ -45,7 +45,7 @@ module OpenDataStructures::Chapter2
     end
 
     def test_resize
-      array = ArrayDeque.new
+      array = ArrayQueue.new
 
       array.add(0,:a)
       array.add(0,:b)

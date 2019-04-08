@@ -17,17 +17,17 @@ module OpenDataStructures
       end
 
       def [](index)
-        assert_index index
+        validate_index index
         get index
       end
 
       def []=(index,value)
-        assert_index index
+        validate_index index
         set index, value
       end
 
       def add(index,value)
-        assert_add index
+        validate_add index
         grow if full?
 
         (length - index).times do |i|
@@ -41,7 +41,7 @@ module OpenDataStructures
       end
 
       def remove(index)
-        assert_index index
+        validate_index index
         target = get index
 
         (length - index - 1).times do |i|
@@ -108,10 +108,10 @@ module OpenDataStructures
           @blocks.pop
         end
 
-        def assert_index(index)
+        def validate_index(index)
           raise ArgumentError, "index: #{index} / length: #{length}" if index < 0 or index >= length
         end
-        def assert_add(index)
+        def validate_add(index)
           raise ArgumentError, "index: #{index} / length: #{length}" if index < 0 or index >= length + 1
         end
     end

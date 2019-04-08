@@ -39,17 +39,17 @@ module OpenDataStructures
       attr_reader :length
 
       def [](index)
-        assert_index index
+        validate_index index
         find(index).value
       end
 
       def []=(index,value)
-        assert_index index
+        validate_index index
         find(index).value = value
       end
 
       def add(index,value)
-        assert_add index
+        validate_add index
 
         node = Node.new value
 
@@ -71,7 +71,7 @@ module OpenDataStructures
       end
 
       def remove(index)
-        assert_index index
+        validate_index index
 
         if index == 0
           target = @head
@@ -127,10 +127,10 @@ module OpenDataStructures
           end
         end
 
-        def assert_index(index)
+        def validate_index(index)
           raise ArgumentError, "index: #{index} / length: #{length}" if index < 0 or index >= length
         end
-        def assert_add(index)
+        def validate_add(index)
           raise ArgumentError, "index: #{index} / length: #{length}" if index < 0 or index >= length + 1
         end
     end
