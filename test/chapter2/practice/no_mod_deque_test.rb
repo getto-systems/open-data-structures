@@ -5,6 +5,8 @@ require "chapter2/practice/no_mod_deque.rb"
 module OpenDataStructures::Chapter2
   module Practice
     class ArrayDequeTest < Minitest::Test
+      using NoModDeque
+
       def test_set_and_get
         array = ArrayDeque.new
         array.add(0,nil)

@@ -1,27 +1,28 @@
 require "minitest/autorun"
 
-require "chapter3/practice/second_last"
+require "chapter3/practice/reverse"
 
 module OpenDataStructures::Chapter3
   module Practice
     class SLListTest < Minitest::Test
-      using SecondLast
+      using Reverse
 
-      def test_second_last
+      def test_reverse
         list = SLList.new
         list.push :a
         list.push :b
         list.push :c
         list.push :d
 
-        assert_equal :c, list.second_last
-      end
+        list.reverse!
 
-      def test_second_last_short
-        list = SLList.new
-        list.push :a
-
-        assert_nil list.second_last
+        assert_equal [:d,:c,:b,:a],
+          [
+            list[0],
+            list[1],
+            list[2],
+            list[3],
+          ]
       end
     end
   end

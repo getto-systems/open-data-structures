@@ -4,6 +4,8 @@ require "chapter2/practice/rotate"
 
 module OpenDataStructures::Chapter2
   module Practice
+    using Rotate
+
     class RotateTest < Minitest::Test
       def test_backing_array
         array = BackingArray.new(length: 5)
