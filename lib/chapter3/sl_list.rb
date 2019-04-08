@@ -61,10 +61,6 @@ module OpenDataStructures
           find(index - 1).insertNext node
         end
 
-        if index == length
-          @tail = node
-        end
-
         @length += 1
 
         nil
@@ -76,17 +72,9 @@ module OpenDataStructures
         if index == 0
           target = @head
           @head = target.next
-
-          if index == length - 1
-            @tail = @head
-          end
         else
           previous = find(index - 1)
           target = previous.removeNext
-
-          if index == length - 1
-            @tail = previous
-          end
         end
 
         value = target.value
@@ -116,15 +104,11 @@ module OpenDataStructures
       private
 
         def find(index)
-          if index == length - 1
-            @tail
-          else
-            node = @head
-            index.times do
-              node = node.next
-            end
-            node
+          node = @head
+          index.times do
+            node = node.next
           end
+          node
         end
 
         def validate_index(index)
