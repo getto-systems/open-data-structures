@@ -1,39 +1,46 @@
 module OpenDataStructures
   module Chapter3
-    class SLList
+    class DLList
       class Node
         def initialize(value)
           @value = value
         end
 
-        attr_accessor :next, :value
+        attr_accessor :next, :previous, :value
 
         def clear!
           @value = nil
           @next = nil
+          @previous = nil
         end
 
-        def insertAfter(node)
-          if self.next
-            self.next, node.next = node, self.next
-          else
-            self.next = node
-          end
+        def insertBefore(node)
+          self.previous.next = node
+
+          node.previous = self.previous
+          node.next = self
+
+          self.previous = node
         end
 
-        def removeNext
-          nextNode = self.next
+        def remove!
+          self.previous.next = self.next
+          self.next.previous = self.previous
 
-          if nextNode
-            self.next = nextNode.next
-          end
+          value = self.value
 
-          nextNode
+          clear!
+
+          value
         end
       end
 
       def initialize
         @length = 0
+
+        @loop = Node.new nil
+        @loop.next = @loop
+        @loop.previous = @loop
       end
 
       attr_reader :length
@@ -51,16 +58,7 @@ module OpenDataStructures
       def add(index,value)
         validate_add index
 
-        node = Node.new value
-
-        if index == 0
-          node.insertAfter @head
-
-          @head = node
-        else
-          find(index - 1).insertAfter node
-        end
-
+        find(index).insertBefore Node.new(value)
         @length += 1
 
         nil
@@ -69,16 +67,7 @@ module OpenDataStructures
       def remove(index)
         validate_index index
 
-        if index == 0
-          target = @head
-          @head = target.next
-        else
-          target = find(index - 1).removeNext
-        end
-
-        value = target.value
-        target.clear!
-
+        value = find(index).remove!
         @length -= 1
 
         value
@@ -103,10 +92,18 @@ module OpenDataStructures
       private
 
         def find(index)
-          node = @head
-          index.times do
-            node = node.next
+          node = @loop
+
+          if index < length/2
+            (index + 1).times do
+              node = node.next
+            end
+          else
+            (length - index).times do
+              node = node.previous
+            end
           end
+
           node
         end
 
