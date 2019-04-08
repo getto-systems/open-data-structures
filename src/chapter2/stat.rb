@@ -4,15 +4,16 @@ require "csv"
 module OpenDataStructures
   module Chapter2
     class Stat
-      def initialize(klass,args=[])
+      def initialize(klass,*args,**opts)
         @klass = klass
         @args = args
+        @opts = opts
       end
 
       private
 
         def start(label, &block)
-          instance = @klass.new(*@args)
+          instance = @klass.new(*@args,**@opts)
 
           file = "#{@klass.to_s.split("::").last}-#{label}"
           CSV.open("data/chapter2/#{file}.csv","wb") do |csv|

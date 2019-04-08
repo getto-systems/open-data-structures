@@ -8,12 +8,7 @@ module OpenDataStructures
 
         attr_accessor :next, :value
 
-        def clear!
-          @value = nil
-          @next = nil
-        end
-
-        def insertAfter(node)
+        def insert_after(node)
           if self.next
             self.next, node.next = node, self.next
           else
@@ -21,7 +16,7 @@ module OpenDataStructures
           end
         end
 
-        def removeNext
+        def remove_next
           nextNode = self.next
 
           if nextNode
@@ -54,11 +49,11 @@ module OpenDataStructures
         node = Node.new value
 
         if index == 0
-          node.insertAfter @head
+          node.insert_after @head
 
           @head = node
         else
-          find(index - 1).insertAfter node
+          find(index - 1).insert_after node
         end
 
         @length += 1
@@ -73,11 +68,10 @@ module OpenDataStructures
           target = @head
           @head = target.next
         else
-          target = find(index - 1).removeNext
+          target = find(index - 1).remove_next
         end
 
         value = target.value
-        target.clear!
 
         @length -= 1
 
