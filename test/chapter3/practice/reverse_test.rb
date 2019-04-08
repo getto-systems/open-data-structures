@@ -4,7 +4,7 @@ require "chapter3/practice/reverse"
 
 module OpenDataStructures::Chapter3
   module Practice
-    class SLListTest < Minitest::Test
+    class ReverseTest < Minitest::Test
       using Reverse
 
       def test_reverse
