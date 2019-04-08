@@ -75,43 +75,37 @@ module OpenDataStructures
         validate_add index
 
         if index == length
-          last = @loop.previous
-          if last.loop? or last.block.length == block_size + 1
-            last = @loop.insert_before Node.new
+          target = @loop.previous
+          if target.loop? or target.block.length == block_size + 1
+            target = @loop.insert_before Node.new
           end
-          last.block.push value
-          @length += 1
+          i = target.block.length
         else
           node, i = find index
-          target = node
 
-          full_count = 0
-
-          block_size.times do
-            break if node.loop?
-            break unless node.block.length == block_size + 1
-
-            full_count += 1
-            node = node.next
-          end
+          full_count = node_count node, block_size + 1
 
           if full_count == block_size
-            spread target
-            node = target
+            spread node
           end
 
-          if node.loop?
-            node = @loop.insert_before Node.new
+          target = node
+          full_count.times do
+            target = target.next
           end
 
-          while node != target
-            node.block.unshift node.previous.block.pop
-            node = node.previous
+          if target.loop?
+            target = @loop.insert_before Node.new
           end
 
-          node.block.add i, value
-          @length += 1
+          while target != node
+            target.block.unshift target.previous.block.pop
+            target = target.previous
+          end
         end
+
+        target.block.add i, value
+        @length += 1
 
         nil
       end
@@ -121,16 +115,7 @@ module OpenDataStructures
 
         node, i = find index
 
-        under_count = 0
-
-        target = node
-        block_size.times do
-          break if target.loop?
-          break unless target.block.length == block_size - 1
-
-          under_count += 1
-          target = target.next
-        end
+        under_count = node_count node, block_size - 1
 
         if under_count == block_size
           gather node
@@ -195,6 +180,20 @@ module OpenDataStructures
           end
 
           [ node, search ]
+        end
+
+        def node_count(node, size)
+          count = 0
+
+          block_size.times do
+            break if node.loop?
+            break unless node.block.length == size
+
+            count += 1
+            node = node.next
+          end
+
+          count
         end
 
         def spread(node)
