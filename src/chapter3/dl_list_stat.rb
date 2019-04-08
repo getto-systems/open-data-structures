@@ -1,11 +1,11 @@
-require "chapter3/sl_list"
+require "chapter3/dl_list"
 
 require_relative "stat"
 
 module OpenDataStructures::Chapter3
-  class SLListStat < Stat
+  class DLListStat < Stat
     def initialize
-      super(SLList)
+      super(DLList)
     end
 
     def dump(unit:, count:)
@@ -72,5 +72,5 @@ module OpenDataStructures::Chapter3
     end
   end
 
-  SLListStat.new.dump unit: 100, count: 100
+  DLListStat.new.dump unit: 100, count: 100
 end
