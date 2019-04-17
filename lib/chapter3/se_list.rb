@@ -1,11 +1,24 @@
-require "chapter3/dl_list"
+require "chapter2/array_deque"
 
 module OpenDataStructures
   module Chapter3
     class SEList
+      class FixedDeque < Chapter2::ArrayDeque
+        def initialize(length:)
+          @length = 0
+          @index = 0
+          @array = Chapter2::BackingArray.new(length: length)
+        end
+
+        private
+
+          def resize(size)
+          end
+      end
+
       class Node
-        def initialize
-          @block = DLList.new
+        def initialize(block_size:)
+          @block = FixedDeque.new(length: block_size + 1)
         end
 
         attr_reader :block
@@ -15,9 +28,7 @@ module OpenDataStructures
           false
         end
 
-        def insert_before
-          node = Node.new
-
+        def insert_before(node)
           self.previous.next = node
 
           node.previous = self.previous
@@ -36,8 +47,6 @@ module OpenDataStructures
 
       class LoopNode < Node
         def initialize
-          super
-
           @next = self
           @previous = self
         end
@@ -76,22 +85,15 @@ module OpenDataStructures
       def add(index,value)
         validate_add index
 
-        if index == length
+        if index < length
+          node, i = find index
+          spread node
+        else
           node = @loop.previous
           if node.loop? or node.block.length == block_size + 1
-            node = @loop.insert_before
+            node = @loop.insert_before(new_node)
           end
           i = node.block.length
-        else
-          node, i = find index
-
-          full_count = node_count node, block_size + 1
-
-          if full_count == block_size
-            spread node
-          end
-
-          shift_after_add node, full_count
         end
 
         node.block.add i, value
@@ -104,17 +106,7 @@ module OpenDataStructures
         validate_index index
 
         node, i = find index
-
-        under_count = node_count node, block_size - 1
-
-        if under_count == block_size
-          gather node
-        end
-
-        value = node.block.remove i
-
-        shift_after_remove node
-
+        value = gather node, i
         @length -= 1
 
         value
@@ -137,6 +129,10 @@ module OpenDataStructures
       end
 
       private
+
+        def new_node
+          Node.new(block_size: block_size)
+        end
 
         def find(index)
           if index < length/2
@@ -178,48 +174,50 @@ module OpenDataStructures
         end
 
         def spread(node)
-          target = node
-          block_size.times do
-            target = target.next
-          end
+          full_count = node_count node, block_size + 1
 
-          target = target.insert_before
-          while target != node
-            while target.block.length < block_size
-              target.block.unshift target.previous.block.pop
-            end
-            target = target.previous
-          end
-        end
-
-        def shift_after_add(node, full_count)
           target = node
           full_count.times do
             target = target.next
           end
 
-          if target.loop?
-            target = target.insert_before
-          end
+          if full_count == block_size
+            target = target.insert_before(new_node)
 
-          while target != node
-            target.block.unshift target.previous.block.pop
-            target = target.previous
-          end
-        end
-
-        def gather(node)
-          target = node
-          (block_size - 1).times do
-            while target.block.length < block_size
-              target.block.push target.next.block.shift
+            while target != node
+              while target.block.length < block_size
+                target.block.unshift target.previous.block.pop
+              end
+              target = target.previous
             end
-            target = target.next
+          else
+            if target.loop?
+              target = target.insert_before(new_node)
+            end
+
+            while target != node
+              target.block.unshift target.previous.block.pop
+              target = target.previous
+            end
           end
-          target.remove!
         end
 
-        def shift_after_remove(node)
+        def gather(node, index)
+          under_count = node_count node, block_size - 1
+
+          if under_count == block_size
+            target = node
+            (block_size - 1).times do
+              while target.block.length < block_size
+                target.block.push target.next.block.shift
+              end
+              target = target.next
+            end
+            target.remove!
+          end
+
+          value = node.block.remove index
+
           while node.block.length < block_size - 1
             break if node.next.loop?
             node.block.push node.next.block.shift
@@ -229,6 +227,8 @@ module OpenDataStructures
           if node.block.length == 0
             node.remove!
           end
+
+          value
         end
 
         def validate_index(index)
