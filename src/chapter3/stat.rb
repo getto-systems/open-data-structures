@@ -13,13 +13,17 @@ module OpenDataStructures
       private
 
         def start(label, &block)
-          instance = @klass.new(*@args,**@opts)
+          instance = init_instance
 
           file = "#{@klass.to_s.split("::").last}-#{label}"
           CSV.open("data/chapter3/#{file}.csv","wb") do |csv|
             csv << header
             block.call(instance,csv)
           end
+        end
+
+        def init_instance
+          @klass.new(*@args,**@opts)
         end
 
         def header
