@@ -100,13 +100,13 @@ module OpenDataStructures
         def find(index)
           node = @loop
 
-          if index < length/2
-            (index + 1).times do
-              node = node.next
-            end
-          else
+          if index > length/2
             (length - index).times do
               node = node.previous
+            end
+          else
+            (index + 1).times do
+              node = node.next
             end
           end
 

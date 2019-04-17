@@ -23,11 +23,11 @@ module OpenDataStructures::Chapter3
           end
 
           overflow_loop = overflow.instance_variable_get(:@loop)
-          overflow_loop.instance_variable_set(:@next, node)
-          overflow_loop.instance_variable_set(:@previous, @loop.instance_variable_get(:@previous))
+          overflow_loop.next = node
+          overflow_loop.previous = @loop.previous
 
-          node.previous.instance_variable_set(:@next, @loop)
-          @loop.instance_variable_set(:@previous, node.previous)
+          node.previous.next = @loop
+          @loop.previous = node.previous
 
           overflow.instance_variable_set(:@length, length - index)
           @length = index
