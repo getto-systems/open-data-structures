@@ -70,9 +70,7 @@ module OpenDataStructures::Chapter2
 
       refine RootishArrayStack do
         def rotate!(amount)
-          amount.times do
-            unshift(pop) # TODO 思いつかない
-          end
+          # TODO 思いつかない
         end
       end
 
