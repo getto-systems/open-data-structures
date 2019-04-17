@@ -4,6 +4,8 @@ require "chapter2/practice/rotate"
 
 module OpenDataStructures::Chapter2
   module Practice
+    using Rotate
+
     class RotateTest < Minitest::Test
       def test_backing_array
         array = BackingArray.new(length: 5)
@@ -132,6 +134,7 @@ module OpenDataStructures::Chapter2
       end
 
       def test_rootish_array_stack
+        skip "未実装 : 思いつかない"
         array = RootishArrayStack.new
 
         array.push :a

@@ -6,7 +6,7 @@ module OpenDataStructures::Chapter2
   module Practice
     class RandomQueueStat < Stat
       def initialize
-        super(RandomQueue,[Random.new(1000)])
+        super(RandomQueue, Random.new(1000))
       end
 
       def dump(unit:, count:)

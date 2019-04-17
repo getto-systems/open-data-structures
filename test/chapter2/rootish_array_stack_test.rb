@@ -45,7 +45,7 @@ module OpenDataStructures::Chapter2
     end
 
     def test_resize
-      array = ArrayDeque.new
+      array = RootishArrayStack.new
 
       array.add(0,:a)
       array.add(0,:b)
