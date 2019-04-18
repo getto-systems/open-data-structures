@@ -10,6 +10,6 @@ test:
 
 release:
   only:
-    - release@getto-systems-labo/open-data-structures
+    - release@shun-fix9-labo/open-data-structures
   script:
     - ./bin/push_tags.sh
