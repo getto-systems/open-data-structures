@@ -10,10 +10,12 @@ module OpenDataStructures::Chapter3
           previous = nil
 
           while node
-            target = node
-            node = node.next
+            next_node = node.next
 
+            target = node
             target.next = previous
+
+            node = next_node
             previous = target
           end
 
