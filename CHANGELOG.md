@@ -1,3 +1,7 @@
+# Version : 0.2.2
+
+fix: reverse : chapter3
+
 # Version : 0.2.1
 
 fix: repository
