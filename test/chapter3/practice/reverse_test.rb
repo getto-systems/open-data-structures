@@ -42,15 +42,17 @@ module OpenDataStructures::Chapter3
             list[3],
           ]
 
+=begin
         # 末尾再帰最適化
         RubyVM::InstructionSequence.compile_option = {tailcall_optimization: true, trace_instruction: false}
-        RubyVM::InstructionSequence.new(File.read "/apps/getto/labo/open-data-structures/lib/chapter3/practice/reverse.rb").eval
+        RubyVM::InstructionSequence.new(File.read "/path/to/lib/chapter3/practice/reverse.rb").eval
 
         list = SLList.new
         10_000.times do |i|
           list.push i
         end
         list.reverse_recursive!
+=end
       end
 
       def test_reverse_dl_list
