@@ -6,7 +6,7 @@ module OpenDataStructures::Chapter3
     module Reverse
       refine SLList do
         def reverse!
-          target = node = @head
+          node = @head
           previous = nil
 
           while node
@@ -17,8 +17,25 @@ module OpenDataStructures::Chapter3
             previous = target
           end
 
-          @head = target
+          @head = previous
         end
+
+        def reverse_recursive!
+          @head = reverse_recursive_helper(@head)
+        end
+
+        private
+
+          def reverse_recursive_helper(node,previous=nil)
+            return previous unless node
+
+            next_node = node.next
+
+            target = node
+            target.next = previous
+
+            reverse_recursive_helper(next_node, target)
+          end
       end
 
       refine DLList do
