@@ -6,6 +6,7 @@ module OpenDataStructures::Chapter3
     module Reverse
       refine SLList do
         def reverse!
+          return if length == 0
           node = @head
           previous = nil
 
@@ -23,6 +24,7 @@ module OpenDataStructures::Chapter3
         end
 
         def reverse_recursive!
+          return if length == 0
           @head = reverse_recursive_helper(@head)
         end
 
