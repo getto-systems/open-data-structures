@@ -9,7 +9,7 @@ module OpenDataStructures::Chapter2
     end
 
     def dump(unit:, count:)
-      #dump_first(unit, count)
+      dump_first(unit, count)
       dump_last(unit, count)
     end
 
