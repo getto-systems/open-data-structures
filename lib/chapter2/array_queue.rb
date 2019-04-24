@@ -99,7 +99,7 @@ module OpenDataStructures
         end
 
         def shrink
-          resize(@array.length / 3)
+          resize(@array.length / 2)
         end
 
         def resize(new_length)
