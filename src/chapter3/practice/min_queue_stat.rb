@@ -7,8 +7,6 @@ module OpenDataStructures::Chapter3
     class MinQueueStat < Stat
       def initialize
         super(MinQueue)
-
-        @random = Random.new(1000)
       end
 
       def dump(unit:, count:)
@@ -33,12 +31,6 @@ module OpenDataStructures::Chapter3
           end
         end
       end
-
-      private
-
-        def init_instance
-          @klass.new
-        end
     end
 
     MinQueueStat.new.dump unit: 100, count: 100
