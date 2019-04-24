@@ -47,4 +47,4 @@ $ ruby -Ilib src/chapterN/{data_structure}_stat.rb
 
 open-data-structure is licensed under the [MIT](LICENSE) license.
 
-Copyright &copy; since 2018 shun@getto.systems
+Copyright &copy; since 2018 shun.fix9@gmail.com

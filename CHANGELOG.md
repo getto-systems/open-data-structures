@@ -1,3 +1,7 @@
+# Version : 0.2.4
+
+fix: stat classes
+
 # Version : 0.2.3
 
 fix: reverse : chapter3
