@@ -5,7 +5,9 @@ require_relative "stat"
 module OpenDataStructures::Chapter3
   class SEListStat < Stat
     def initialize
-      super(SEList, block_size: 10)
+      super(SEList){
+        SEList.new block_size: 10
+      }
     end
 
     def dump(unit:, count:)
