@@ -58,7 +58,7 @@ module OpenDataStructures
           end
 
           def full?
-            length + 1 >= @array.length
+            length + 1 > @array.length
           end
 
           def over?
