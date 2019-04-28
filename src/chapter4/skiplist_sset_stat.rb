@@ -37,5 +37,5 @@ module OpenDataStructures::Chapter4
     end
   end
 
-  SkiplistSSetStat.new.dump unit: 100, count: 100
+  SkiplistSSetStat.new.dump unit: 1000, count: 100
 end
