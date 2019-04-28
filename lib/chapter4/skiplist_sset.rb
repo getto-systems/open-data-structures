@@ -8,14 +8,12 @@ module OpenDataStructures
           @next = []
         end
 
-        attr_reader :value
+        attr_accessor :height
+        attr_reader :value, :next
 
         def sentinel?
           false
         end
-
-        attr_accessor :height
-        attr_reader :next
       end
 
       class SentinelNode < Node
