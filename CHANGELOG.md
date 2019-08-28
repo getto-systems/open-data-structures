@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version : 0.3.1
+
+
+
 ## Version : 0.3.0
 
 - fix: gitlab-ci : See merge request shun-fix9-base/labo/open-data-structures!58
