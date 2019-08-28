@@ -26,8 +26,8 @@ release:
   image: buildpack-deps:disco-scm
 
   variables:
-    GIT_USER_NAME: getto
-    GIT_USER_EMAIL: admin@getto.systems
+    GIT_USER_NAME: shun
+    GIT_USER_EMAIL: shun.fix9@gmail.com
 
   script:
     - curl https://raw.githubusercontent.com/getto-systems/version-dump/master/bin/version_dump.sh | bash
